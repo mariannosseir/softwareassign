@@ -1,28 +1,7 @@
-#ifndef ex1BankAccount_H_
-#define ex1BankAccount_H_
-
 #include <string>
 #include <iostream>
 #include "ex1BankAccount.h"
-using std::string;
-
-class BankAccount {
- private:
-  string name;
-  string number;
-  double balance;
-
- public:
-  BankAccount();
-  BankAccount(const string & nam, const string & num, double bal);
-  void show();
-  void deposite(double n);
-  void withdraw(double n);
-  ~BankAccount();
-};
-
-
-#endif
+using namespace std;
 
 BankAccount::BankAccount() {
   std::cout << "Default constructor called\n";
@@ -32,18 +11,18 @@ BankAccount::BankAccount() {
 }
 
 BankAccount::BankAccount(const string & nam, const string & num, double bal) {
-  std::cout << "Constructor using " << nam << " called\n";
+cout << "Constructor using " << nam << " called\n";
   name = nam;
   number = num;
   balance = bal;
 }
 
 BankAccount::~BankAccount() {
-  std::cout << "Bye, " << name << "!\n";
+  cout << "Bye, " << name << "!\n";
 }
 
 void BankAccount::show() {
-  std::cout << "Depositor's name\t" << name << std::endl
+  cout << "Depositor's name\t" << name << std::endl
 	    << "Account number\t" << number << std::endl
 	    << "Balance\t" << balance << std::endl;
 }
