@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "dbc.h"
-#include "Dictionary.h"
 
 using namespace std;
 
@@ -47,14 +46,14 @@ public:
 	}
 	bool reqfunction(string name)
 	{
-		for(int i=0, i<getsize(),i++)
+		for(int i=0; i<getsize();i++)
 		{
 			
-			if(getname[i] != name)
-				return true;
-			else
+			if(getname[i] == name)
 				return false;
+			
 		}
+		return true;
 	}
 	bool nameensfunction(string name, int size)
 	{
@@ -74,25 +73,25 @@ public:
 	{
 		int currentsize = getsize();
 		
-		INVARIANT0(int getsize() < 100);
+		INVARIANT0(getsize() < 100);
 		
 		REQUIRE0(reqfunction(name));
 		
 		names[size] = name;
 		emails[size] = email;
-		size++;
+		setsize(getsize() + 1);
 		
 		ENSURE0(nameensfunction(name, getsize()-1) && emailensfunction(email, getsize()-1));
-		ENSURE0(int getsize() == currentsize + 1);
+		ENSURE0(getsize() == currentsize + 1);
 		
-		INVARIANT0(int getsize() <= 100);
+		INVARIANT0(getsize() <= 100);
 	}
 
 	void Remove(string name)
 	{
-		INVARIANT0(int getsize() <= 100);
+		INVARIANT0(getsize() <= 100);
 		
-		REQUIRE0(!reqfunction(name))
+		REQUIRE0(!reqfunction(name));
 		
 		int indextoberemoved, currentsize = getsize();
 
@@ -112,19 +111,19 @@ public:
 		}
 		
 		ENSURE0(getsize()>0);
-		ENSURE0(getsize() = currentsize - 1)
-		ENSURE0(!nameensfunction(name, indextoberemoved) && !emailensfunction(email, indextoberemoved));
+		ENSURE0(getsize() = currentsize - 1);
+		ENSURE0(!nameensfunction(name, indextoberemoved));
 		//to ensure name and email don't exist at indextoberemoved
 		ENSURE0(reqfunction(name));
 		//to ensure name and email don't exist at all
 		
-		INVARIANT0(int getsize() <= 100);
+		INVARIANT0(getsize() <= 100);
 	}
 	void printentries()
 	{
 		int currentsize = getsize();
 		
-		INVARIANT0(int getsize() <= 100);
+		INVARIANT0(getsize() <= 100);
 		
 		REQUIRE0(getsize()>0);
 		
@@ -135,7 +134,7 @@ public:
 		
 		ENSURE0(getsize() == currentsize);
 		
-		INVARIANT0(int getsize() <= 100);
+		INVARIANT0(getsize() <= 100);
 	}
 };
 
