@@ -4,9 +4,7 @@
 
 using namespace std;
 
-
-
-class Dictionary 
+class Dictionary
 {
 private:
 	string names[100];
@@ -15,7 +13,7 @@ private:
 public:
 	Dictionary()
 	{
-		size =0;
+		size = 0;
 	}
 	void setname(string name, int i)
 	{
@@ -35,10 +33,10 @@ public:
 	}
 	void setsize(int newsize)
 	{
-		if(newsize>0)
+		if (newsize>0)
 			size = newsize;
 		else
-			cout<<"Invalid";
+			cout << "Invalid";
 	}
 	int getsize()
 	{
@@ -46,94 +44,92 @@ public:
 	}
 	bool reqfunction(string name)
 	{
-		for(int i=0; i<getsize();i++)
+		for (int i = 0; i < getsize(); i++)
 		{
-			
-			if(getname[i] == name)
+			if (getname(i) == name)
 				return false;
-			
 		}
 		return true;
 	}
 	bool nameensfunction(string name, int size)
 	{
-			if(getname[size] == name)
-				return true;
-			else
-				return false;
+		if (getname(size) == name)
+			return true;
+		else
+			return false;
 	}
 	bool emailensfunction(string email, int size)
 	{
-			if(getemail[size] == email)
-				return true;
-			else
-				return false;
+		if (getemail(size) == email)
+			return true;
+		else
+			return false;
 	}
-	void Add(string name,string email)
+	void Add(string name, string email)
 	{
 		int currentsize = getsize();
-		
+
 		INVARIANT0(getsize() < 100);
-		
+
 		REQUIRE0(reqfunction(name));
-		
+
 		names[size] = name;
 		emails[size] = email;
 		setsize(getsize() + 1);
-		
-		ENSURE0(nameensfunction(name, getsize()-1) && emailensfunction(email, getsize()-1));
+
+		ENSURE0(nameensfunction(name, getsize() - 1) && emailensfunction(email, getsize() - 1));
 		ENSURE0(getsize() == currentsize + 1);
-		
+
 		INVARIANT0(getsize() <= 100);
 	}
 
 	void Remove(string name)
 	{
 		INVARIANT0(getsize() <= 100);
-		
-		REQUIRE0(!reqfunction(name));
-		
-		int indextoberemoved, currentsize = getsize();
 
-		for(int i =0;i<getsize();i++)
+		REQUIRE0(!reqfunction(name));
+
+			int indextoberemoved; int currentsize = getsize();
+
+		for (int i = 0;i <= getsize();i++)
 		{
-			if(names[i] == name)
+			if (names[i] == name)
 			{
 				indextoberemoved = i;
 				break;
 			}
 		}
-		setsize(getsize()-1);
-		for(int i = indextoberemoved;i<getsize();i++)
+		setsize(getsize() - 1);
+		for (int i = indextoberemoved;i<=getsize();i++)
 		{
-			names[i] = names[i+1];
-			emails[i] = emails[i+1];
+			names[i] = names[i + 1];
+			emails[i] = emails[i + 1];
 		}
-		
+
 		ENSURE0(getsize()>0);
-		ENSURE0(getsize() = currentsize - 1);
+		ENSURE0(getsize() == currentsize - 1);
 		ENSURE0(!nameensfunction(name, indextoberemoved));
 		//to ensure name and email don't exist at indextoberemoved
 		ENSURE0(reqfunction(name));
 		//to ensure name and email don't exist at all
-		
+
 		INVARIANT0(getsize() <= 100);
 	}
 	void printentries()
 	{
 		int currentsize = getsize();
-		
+
 		INVARIANT0(getsize() <= 100);
-		
+
 		REQUIRE0(getsize()>0);
-		
-		for(int i =0;i<getsize();i++)
+
+		for (int i = 0;i<getsize();i++)
 		{
-			cout<<"Entry #"<<i+1<<":"<<endl<<names[i]<<": "<<emails[i]<<endl;
+			cout << "Entry #" << i + 1 << ":" << endl << names[i] << ": " << emails[i] << endl;
 		}
-		
+
 		ENSURE0(getsize() == currentsize);
-		
+
 		INVARIANT0(getsize() <= 100);
 	}
 };
@@ -143,11 +139,11 @@ public:
 void main()
 {
 	Dictionary x;
-	x.Add("omar","omar@live.com");
-	x.Add("hassan","hassan@live.com");
-	cout<<"Before Deleting Hassan"<<endl;
+	x.Add("omar", "omar@live.com");
+	x.Add("hassan", "hassan@live.com");
+	cout << "Before Deleting Hassan" << endl;
 	x.printentries();
 	x.Remove("hassan");
-	cout<<"After Deleting Hassan"<<endl;
+	cout << "After Deleting Hassan" << endl;
 	x.printentries();
 }
